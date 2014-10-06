@@ -44,7 +44,7 @@ ARDUINO_INSTALL_DIR  ?= /Applications/Arduino.app/Contents/Resources/Java
 ARDUINO_VERSION      ?= 105
 
 # You can optionally set a path to the avr-gcc tools. Requires a trailing slash. (ex: /usr/local/avr-gcc/bin)
-AVR_TOOLS_PATH ?=
+AVR_TOOLS_PATH ?= /Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/
 
 #Programmer configuration
 UPLOAD_RATE        ?= 115200
@@ -381,6 +381,7 @@ endif
 
 # Default target.
 all: sizeafter
+	@echo "#start makefile#"
 
 build: $(BUILD_DIR) elf hex
 
