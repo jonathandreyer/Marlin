@@ -37,7 +37,7 @@
 # from the commandline with "make HARDWARE_MOTHERBOARD=71" for example
 
 # This defined the board you are compiling for (see Configuration.h for the options)
-HARDWARE_MOTHERBOARD ?= 11
+HARDWARE_MOTHERBOARD ?= 7
 
 # Arduino source install directory, and version number
 ARDUINO_INSTALL_DIR  ?= /Applications/Arduino.app/Contents/Resources/Java
@@ -52,7 +52,7 @@ AVRDUDE_PROGRAMMER ?= arduino
 UPLOAD_PORT        ?= /dev/arduino
 
 #Directory used to build files in, contains all the build files, from object files to the final hex file.
-BUILD_DIR          ?= applet
+BUILD_DIR          ?= release
 
 # This defines whether Liquid_TWI2 support will be built
 LIQUID_TWI2        ?= 0
