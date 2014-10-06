@@ -311,7 +311,7 @@ void lcd_set_home_offsets()
 {
     for(int8_t i=0; i < NUM_AXIS; i++) {
       if (i != E_AXIS) {
-        add_homeing[i] -= current_position[i];
+        add_homing[i] -= current_position[i];
         current_position[i] = 0.0;
       }
     }
@@ -1183,7 +1183,7 @@ void lcd_init()
   #ifdef SR_LCD_2W_NL // Non latching 2 wire shift register
      pinMode (SR_DATA_PIN, OUTPUT);
      pinMode (SR_CLK_PIN, OUTPUT);
-  #elif defined(SHIFT_CLK) 
+  #elif defined(SHIFT_CLK)
      pinMode(SHIFT_CLK,OUTPUT);
      pinMode(SHIFT_LD,OUTPUT);
      pinMode(SHIFT_EN,OUTPUT);
