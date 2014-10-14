@@ -3,7 +3,7 @@ Marlin 3D Printer Firmware
 ==========================
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2224/badge.svg)](https://scan.coverity.com/projects/2224)
 
-Branch for test a probe. The probe have a Hall-O probe from mauk.cc and a servo 6g.
+Branch for test a probe. The probe have a Hall-O probe from mauk.cc and a servo 6g. This is a beta version for testing the probe.
 
 
 Marlin has a GPL license because I believe in open development.
