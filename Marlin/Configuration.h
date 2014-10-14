@@ -373,7 +373,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define Z_MAX_LENGTH (Z_MAX_POS - Z_MIN_POS)
 //============================= Bed Auto Leveling ===========================
 
-#define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
+//#define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
 #define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 
 #ifdef ENABLE_AUTO_BED_LEVELING
@@ -475,7 +475,6 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // - If stepper drivers timeout, it will need X and Y homing again before Z homing
 // - Position the probe in a defined XY point before Z Homing when homing all axis (G28)
 // - Block Z homing only when the probe is outside bed area.
-
 #ifdef Z_SAFE_HOMING
 
 #define Z_SAFE_HOMING_X_POINT (X_MAX_LENGTH/2)    // X point for Z homing when homing all axis (G28)
@@ -484,6 +483,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #endif
 
 #endif // ENABLE_AUTO_BED_LEVELING
+
+//Disable in G28 the using z-probe - (New fonction)
+// It is for keep the compatibility with the older machine (for Gcode)
+#define Z_PROBE_DISABLE_WHEN_HOMING
 
 // The position of the homing switches
 //#define MANUAL_HOME_POSITIONS  // If defined, MANUAL_*_HOME_POS below will be used

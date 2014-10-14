@@ -1208,6 +1208,7 @@ static void homeaxis(int axis) {
 		plan_set_position(current_position[X_AXIS], current_position[Y_AXIS],
 				current_position[Z_AXIS], current_position[E_AXIS]);
 
+#ifndef Z_PROBE_DISABLE_WHEN_HOMING
 #ifndef Z_PROBE_SLED
 		// Engage Servo endstop if enabled
 #ifdef SERVO_ENDSTOPS
@@ -1231,6 +1232,7 @@ static void homeaxis(int axis) {
 #endif
 #endif
 #endif // Z_PROBE_SLED
+#endif // Z_PROBE_DISABLE_WHEN_HOMING
 		destination[axis] = 1.5 * max_length(axis) * axis_home_dir;
 		feedrate = homing_feedrate[axis];
 		plan_buffer_line(destination[X_AXIS], destination[Y_AXIS],
@@ -1272,6 +1274,7 @@ static void homeaxis(int axis) {
 		endstops_hit_on_purpose();
 		axis_known_position[axis] = true;
 
+#ifndef Z_PROBE_DISABLE_WHEN_HOMING
 		// Retract Servo endstop if enabled
 #if defined (Z_PROBE_PIN_ENABLE_DISABLE) && (Z_PROBE_PIN_ENABLE_DISABLE > 0)
 		digitalWrite(Z_PROBE_PIN_ENABLE_DISABLE, HIGH);
@@ -1293,6 +1296,7 @@ static void homeaxis(int axis) {
 		if (axis==Z_AXIS) retract_z_probe();
 #endif
 #endif
+#endif // Z_PROBE_DISABLE_WHEN_HOMING
 
 	}
 }
