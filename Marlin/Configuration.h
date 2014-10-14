@@ -23,7 +23,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(JDreyer, probe config)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -142,7 +142,7 @@
 // 110 is Pt100 with 1k pullup (non standard)
 
 #define TEMP_SENSOR_0 -1
-#define TEMP_SENSOR_1 -1
+#define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_BED 0
 
@@ -151,7 +151,7 @@
 #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
 // Actual temperature must be close to target for this long before M109 returns success
-#define TEMP_RESIDENCY_TIME 10  // (seconds)
+#define TEMP_RESIDENCY_TIME 3  // (seconds)
 #define TEMP_HYSTERESIS 3       // (degC) range of +/- temperatures considered "close" to the target one
 #define TEMP_WINDOW     1       // (degC) Window around target to start the residency timer x degC early.
 
@@ -313,7 +313,7 @@
 #define ENDSTOPPULLUP_ZMAX
 #define ENDSTOPPULLUP_XMIN
 #define ENDSTOPPULLUP_YMIN
-#define ENDSTOPPULLUP_ZMIN
+//#define ENDSTOPPULLUP_ZMIN
 #endif
 
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
@@ -357,8 +357,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
-#define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
-#define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
+#define min_software_endstops false // If true, axis won't move to coordinates less than HOME_POS.
+#define max_software_endstops false  // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // Travel limits after homing
 #define X_MAX_POS 205
@@ -398,10 +398,14 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #ifdef AUTO_BED_LEVELING_GRID
 
 // set the rectangle in which to probe
-#define LEFT_PROBE_BED_POSITION 15
-#define RIGHT_PROBE_BED_POSITION 170
-#define BACK_PROBE_BED_POSITION 180
-#define FRONT_PROBE_BED_POSITION 20
+//#define LEFT_PROBE_BED_POSITION 5
+//#define RIGHT_PROBE_BED_POSITION 140
+//#define BACK_PROBE_BED_POSITION 150
+//#define FRONT_PROBE_BED_POSITION 5
+#define LEFT_PROBE_BED_POSITION 50
+#define RIGHT_PROBE_BED_POSITION 150
+#define BACK_PROBE_BED_POSITION 150
+#define FRONT_PROBE_BED_POSITION 50
 
 // set the number of grid points per dimension
 // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
@@ -409,7 +413,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 #else  // not AUTO_BED_LEVELING_GRID
 // with no grid, just probe 3 arbitrary points.  A simple cross-product
-// is used to esimate the plane of the print bed
+// is used to estimate the plane of the print bed
 
 #define ABL_PROBE_PT_1_X 15
 #define ABL_PROBE_PT_1_Y 180
@@ -421,31 +425,51 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #endif // AUTO_BED_LEVELING_GRID
 
 // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
-#define X_PROBE_OFFSET_FROM_EXTRUDER -22.15		//TODO Ctrl: peux-etre croisee X-Y
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -18.1		//TODO Ctrl: peux-etre croisee X-Y
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -10		//TODO Ctrl: A priori OK
+#define X_PROBE_OFFSET_FROM_EXTRUDER 18.1		//TODO Ctrl: peux-etre croisee X-Y
+//#define X_PROBE_OFFSET_FROM_EXTRUDER 0
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 22.15		//TODO Ctrl: peux-etre croisee X-Y
+//#define Y_PROBE_OFFSET_FROM_EXTRUDER 0
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -9.5
 
-#define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
+#define Z_RAISE_BEFORE_HOMING 20       // (in mm) Raise Z before homing (G28) for Probe Clearance.
 // Be sure you have this distance over your Z_MAX_POS in case
 
-#define XY_TRAVEL_SPEED 8000         // X and Y axis travel speed between probes, in mm/min
+#define XY_TRAVEL_SPEED 6000         // X and Y axis travel speed between probes, in mm/min
 
-#define Z_RAISE_BEFORE_PROBING 15    //How much the extruder will be raised before traveling to the first probing point.
+#define Z_RAISE_BEFORE_PROBING 20    //How much the extruder will be raised before traveling to the first probing point.
 #define Z_RAISE_BETWEEN_PROBINGS 5  //How much the extruder will be raised when traveling from between next probing points
 
 //#define Z_PROBE_SLED // turn on if you have a z-probe mounted on a sled like those designed by Charles Bell
 //#define SLED_DOCKING_OFFSET 5 // the extra distance the X axis must travel to pickup the sled. 0 should be fine but you can push it further if you'd like.
 
+
 //If defined, the Probe servo will be turned on only during movement and then turned off to avoid jerk
 //The value is the delay to turn the servo off after powered on - depends on the servo speed; 300ms is good value, but you can try lower it.
 // You MUST HAVE the SERVO_ENDSTOPS defined to use here a value higher than zero otherwise your code will not compile.
+//#define PROBE_SERVO_DEACTIVATION_DELAY 300
 
-//  #define PROBE_SERVO_DEACTIVATION_DELAY 300
+// Enable the power for servo before rotation & disable after rotation - (New fonction)
+// 	- One pin of the arduino is connected to a mosfet channel-p and active/deactivate the power of servo
+//	- PROBE_SERVO_DEACTIVATION_DELAY need to be used for make a little delay after the probe retract
+//#define Z_PROBE_ACTIVATE_DEACTIVATE_POWER
+// Disable Servo with mosfet & output
+// When defined, it will:
+// -
+//#define Z_PROBE_PIN_ENABLE_DISABLE 12
+
+// Engage/Retract at the begin and at the end of the Z Probe - (New fonction)
+// When defined, it will:
+// - Extract the probe at the begin of the detailed Z-Probe (G29) and after the function
+#define Z_PROBE_ENGAGE_BEFORE_RETRACT_AFTER
+
+// Delay for engaged the probe - (New fonction)
+// If the hall sensor is affected by the moving of the engagement.
+#define Z_PROBE_DELAY_EXTRACT 400				// Delay time (ms) when the probe is engage
 
 //If you have enabled the Bed Auto Leveling and are using the same Z Probe for Z Homing,
 //it is highly recommended you let this Z_SAFE_HOMING enabled!!!
 
-#define Z_SAFE_HOMING   // This feature is meant to avoid Z homing with probe outside the bed area.
+//#define Z_SAFE_HOMING   // This feature is meant to avoid Z homing with probe outside the bed area.
 // When defined, it will:
 // - Allow Z homing only after X and Y homing AND stepper drivers still enabled
 // - If stepper drivers timeout, it will need X and Y homing again before Z homing
@@ -482,7 +506,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define DEFAULT_MAX_FEEDRATE          {500, 500, 5, 25}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {9000,9000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_ACCELERATION          4000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
@@ -514,24 +538,24 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //define this to enable EEPROM support
-//#define EEPROM_SETTINGS
+#define EEPROM_SETTINGS
 //to disable EEPROM Serial responses and decrease program space by ~1700 byte: comment this out:
 // please keep turned on if you can.
-//#define EEPROM_CHITCHAT
+#define EEPROM_CHITCHAT
 
 // Preheat Constants
-#define PLA_PREHEAT_HOTEND_TEMP 180
+#define PLA_PREHEAT_HOTEND_TEMP 210
 #define PLA_PREHEAT_HPB_TEMP 70
-#define PLA_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define PLA_PREHEAT_FAN_SPEED 0		// Insert Value between 0 and 255
 
-#define ABS_PREHEAT_HOTEND_TEMP 240
+#define ABS_PREHEAT_HOTEND_TEMP 250
 #define ABS_PREHEAT_HPB_TEMP 100
-#define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define ABS_PREHEAT_FAN_SPEED 0		// Insert Value between 0 and 255
 
 //LCD and SD support
 //#define ULTRA_LCD  //general LCD support, also 16x2
 //#define DOGLCD  // Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
-#define SDSUPPORT // Enable SD Card Support in Hardware Console
+//#define SDSUPPORT // Enable SD Card Support in Hardware Console
 //#define SDSLOW // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
 //#define SD_CHECK_AND_RETRY // Use CRC checks and retries on the SD communication
 //#define ENCODER_PULSES_PER_STEP 1 // Increase if you have a high resolution encoder
@@ -696,7 +720,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #endif
 
 // Increase the FAN pwm frequency. Removes the PWM noise but increases heating in the FET/Arduino
-//#define FAST_PWM_FAN
+#define FAST_PWM_FAN
 
 // Temperature status LEDs that display the hotend and bet temperature.
 // If all hotends and bed temperature and temperature setpoint are < 54C then the BLUE led is on.

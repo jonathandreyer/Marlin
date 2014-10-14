@@ -8,3 +8,5 @@ applet/
 .cproject
 .settings/
 Marlin/release/*
+Marlin/old_configrations/*
+Old_src/*
